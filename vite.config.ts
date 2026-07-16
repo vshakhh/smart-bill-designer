@@ -6,10 +6,15 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Use node-server preset when building for Docker/OpenShift (BUILD_TARGET=node).
+// Default remains cloudflare for Lovable preview/publish.
+const isNode = process.env.BUILD_TARGET === "node";
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  ...(isNode ? { nitro: { preset: "node-server" } } : {}),
 });
