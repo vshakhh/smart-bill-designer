@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedAppRouteImport } from './routes/_authenticated.app'
 import { Route as AuthenticatedAppBillsRouteImport } from './routes/_authenticated.app.bills'
+import { Route as AuthenticatedAppAdminRouteImport } from './routes/_authenticated.app.admin'
 
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
@@ -39,17 +40,24 @@ const AuthenticatedAppBillsRoute = AuthenticatedAppBillsRouteImport.update({
   path: '/bills',
   getParentRoute: () => AuthenticatedAppRoute,
 } as any)
+const AuthenticatedAppAdminRoute = AuthenticatedAppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedAppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app/bills': typeof AuthenticatedAppBillsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/app': typeof AuthenticatedAppRouteWithChildren
+  '/app/admin': typeof AuthenticatedAppAdminRoute
   '/app/bills': typeof AuthenticatedAppBillsRoute
 }
 export interface FileRoutesById {
@@ -58,19 +66,21 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/auth': typeof AuthRoute
   '/_authenticated/app': typeof AuthenticatedAppRouteWithChildren
+  '/_authenticated/app/admin': typeof AuthenticatedAppAdminRoute
   '/_authenticated/app/bills': typeof AuthenticatedAppBillsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/app' | '/app/bills'
+  fullPaths: '/' | '/auth' | '/app' | '/app/admin' | '/app/bills'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/app' | '/app/bills'
+  to: '/' | '/auth' | '/app' | '/app/admin' | '/app/bills'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/auth'
     | '/_authenticated/app'
+    | '/_authenticated/app/admin'
     | '/_authenticated/app/bills'
   fileRoutesById: FileRoutesById
 }
@@ -117,14 +127,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAppBillsRouteImport
       parentRoute: typeof AuthenticatedAppRoute
     }
+    '/_authenticated/app/admin': {
+      id: '/_authenticated/app/admin'
+      path: '/admin'
+      fullPath: '/app/admin'
+      preLoaderRoute: typeof AuthenticatedAppAdminRouteImport
+      parentRoute: typeof AuthenticatedAppRoute
+    }
   }
 }
 
 interface AuthenticatedAppRouteChildren {
+  AuthenticatedAppAdminRoute: typeof AuthenticatedAppAdminRoute
   AuthenticatedAppBillsRoute: typeof AuthenticatedAppBillsRoute
 }
 
 const AuthenticatedAppRouteChildren: AuthenticatedAppRouteChildren = {
+  AuthenticatedAppAdminRoute: AuthenticatedAppAdminRoute,
   AuthenticatedAppBillsRoute: AuthenticatedAppBillsRoute,
 }
 
