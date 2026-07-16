@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { computeTotals, generateBillPdf, type BillItem } from "@/lib/pdf";
 import { Plus, Trash2, Download, Save } from "lucide-react";
 
-export const Route = createFileRoute("/_authenticated/")({
+export const Route = createFileRoute("/_authenticated/app")({
   head: () => ({ meta: [{ title: "New Bill — BillPad" }] }),
   component: NewBill,
 });
