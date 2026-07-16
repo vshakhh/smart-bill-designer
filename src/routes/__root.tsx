@@ -77,14 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "BillPad — Simple Supermarket Billing" },
+      { name: "description", content: "Create clean, printable supermarket bills with GST, discounts and instant PDF download. Invite-only access." },
+      { name: "author", content: "BillPad" },
+      { property: "og:title", content: "BillPad — Simple Supermarket Billing" },
+      { property: "og:description", content: "Friendly POS-style billing with one-click PDF export." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
