@@ -30,8 +30,8 @@ ENV NODE_ENV=production \
     HOST=0.0.0.0 \
     PORT=8080
 
-# Nitro node-server preset emits a fully self-contained .output directory
-COPY --from=builder /app/.output ./.output
+# Nitro node-server preset emits a self-contained build under dist/
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 8080
 
@@ -39,4 +39,4 @@ EXPOSE 8080
 RUN chgrp -R 0 /app && chmod -R g=u /app
 USER 1001
 
-CMD ["node", ".output/server/index.mjs"]
+CMD ["node", "dist/server/index.mjs"]
